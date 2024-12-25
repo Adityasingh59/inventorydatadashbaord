@@ -6,26 +6,23 @@ import time
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
-################################################################################################################
-
-
-################################################################################################################
-
 # Set page configuration
 st.set_page_config(page_title="Sales Dashboard", page_icon=":bar_chart:", layout="wide")
 
 # Function to load dataset
 @st.cache_data
-def load_data(file_path):
-    return pd.read_csv(file_path)
+def load_data(file_url):
+    return pd.read_csv(file_url)
 
-# Load dataset
-df = load_data("C:\\Users\\Aditya\\Desktop\\PGdma\\SEM 1\\python\\Python Assignment\\data\\supply_chain_data.csv")
+# Load dataset from a public URL (replace with your hosted file URL)
+file_url = "https://path_to_your_file.csv"  # Replace this with the actual file URL
 
 # Display spinner while loading app
 with st.spinner('Loading app...'):
     time.sleep(1)
+
+# Load the data from the cloud
+df = load_data("https://drive.google.com/uc?export=download&id=1wuElVDAP8erlGjsXkq_fPGCPLrtsljQY")
 
 # Main dashboard title
 st.markdown(
@@ -40,6 +37,7 @@ st.markdown(
 # Dataset display expander
 with st.expander("📋 Show Dataset"):
     st.write(df)
+
 
 # Sidebar filters
 product_types = st.sidebar.multiselect("Select Product Type(s)", options=df['Product type'].unique(), default=df['Product type'].unique())
